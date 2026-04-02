@@ -1,4 +1,4 @@
-# INSIGHTS.md — What the Data Revealed
+# INSIGHTS.md : What the Data Revealed
 
 ## Insight 1: Grand Rift's Mine Pit is a dangerous single point of failure
 
@@ -18,7 +18,7 @@ When loot and combat are funneled into one named location, the map stops being a
 
 ---
 
-## Insight 2: Lockdown is the most balanced map — and the data proves it
+## Insight 2: Lockdown is the most balanced map and the data proves it
 
 **What I noticed:**
 Lockdown's heatmaps look completely different from the other two maps. Traffic, kills, loot and deaths are all spread across multiple zones with no single overwhelming hotspot. The map has multiple areas of activity happening simultaneously.
