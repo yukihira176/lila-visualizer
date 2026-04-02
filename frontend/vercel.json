@@ -3,7 +3,3 @@
   "outputDirectory": "frontend/dist",
   "installCommand": "echo 'skip'"
 }
-```
-
-Press **Ctrl+S** then push:
-```
