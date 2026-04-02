@@ -36,19 +36,19 @@ Lockdown's even distribution is a sign of good map design, players are not force
 
 ---
 
-## Insight 3: Ambrose Valley has a healthy loot-to-combat separation — but one kill zone needs attention
+## Insight 3: Ambrose Valley has a healthy loot-to-combat separation, but one kill zone needs attention
 
 **What I noticed:**
 On Ambrose Valley, the loot heatmap and the kills heatmap tell two different stories. Loot is spread across many buildings and areas all over the map. But kills concentrate in one central zone. This means players are looting in different places and then traveling to fight, which creates a natural game loop.
 
 **What the data shows:**
-Ambrose Valley is the most played map with 566 matches, 554 human slots and 282 bot slots. The loot spread is healthy — multiple hotspots across the map encourage players to start matches in different locations. However the kills heatmap shows one dominant central zone where the majority of human vs human combat happens. Storm deaths are scattered across the interior, suggesting players are getting caught mid-rotation while moving toward the extraction.
+Ambrose Valley is the most played map with 566 matches, 554 human slots and 282 bot slots. The loot spread is healthy, multiple hotspots across the map encourage players to start matches in different locations. However the kills heatmap shows one dominant central zone where the majority of human vs human combat happens. Storm deaths are scattered across the interior, suggesting players are getting caught mid-rotation while moving toward the extraction.
 
 **Why a level designer should care:**
-The loot spread is working well — it creates varied early-game experiences. But the single central kill zone means all roads lead to the same fight. Players who loot anywhere on the map eventually funnel into the same central area. The storm death scatter in the interior suggests the storm is catching players during this rotation — meaning the timing between storm speed and map traversal time may need adjustment. The metric to watch: storm death rate as a percentage of total deaths. If storm deaths are high relative 
+The loot spread is working well, it creates varied early-game experiences. But the single central kill zone means all roads lead to the same fight. Players who loot anywhere on the map eventually funnel into the same central area. The storm death scatter in the interior suggests the storm is catching players during this rotation, meaning the timing between storm speed and map traversal time may need adjustment. The metric to watch: storm death rate as a percentage of total deaths. If storm deaths are high relative 
 to combat deaths, the storm timing is too aggressive for the map size.
 
 **Actionable items:**
-- Keep the current loot distribution — it is working
+- Keep the current loot distribution, it is working
 - Add a secondary combat zone on the opposite side of the map to break the single-funnel pattern
 - Review storm speed relative to the time it takes to cross the map from the furthest loot zones to the extraction point
