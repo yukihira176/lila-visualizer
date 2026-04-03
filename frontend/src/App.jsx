@@ -69,7 +69,7 @@ export default function App() {
     const interval = setInterval(() => {
       setTimelinePct(prev => {
         if (prev >= 100) { setIsPlaying(false); return 100 }
-        return Math.min(100, prev + 0.3)
+        return Math.min(100, prev + 0.05)
       })
     }, 50)
     return () => clearInterval(interval)
