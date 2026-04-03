@@ -1,54 +1,57 @@
 # INSIGHTS.md : What the Data Revealed
 
-## Insight 1: Grand Rift's Mine Pit is a dangerous single point of failure
-
-**What I noticed:**
-On Grand Rift, switching between the Traffic, Kills, Loot and Deaths heatmaps reveals something alarming, all four show the exact same hotspot: Mine Pit. Players go there to loot fight, and die, all in the same location. No other area on the map comes close.
-
-**What the data shows:**
-Grand Rift has 59 matches with 57 human slots and 54 bot slots. Across all these matches, Mine Pit dominates every single heatmap. This is in sharp contrast to Ambrose Valley (566 matches) where loot is spread across the map even though kills concentrate in one zone. On Grand Rift, loot and kills are in the exact same place meaning players have no strategic choice. Everyone goes to Mine Pit because that is where everything is.
-
-**Why a level designer should care:**
-When loot and combat are funneled into one named location, the map stops being a strategic space and becomes a single arena. Players who avoid Mine Pit find no loot and no action, they are effectively playing a different, worse game. This also makes matches predictable and reduces replayability. The metric to watch: percentage of kills occurring in a single named zone. If one zone accounts for the majority of kills across 59 matches, the map needs loot redistribution.
-
-**Actionable items:**
-- Add meaningful loot to Maintenance Bay, Burnt Zone, and Engineer's Quarters to create alternative destinations
-- Reduce Mine Pit loot density slightly to soften the magnet effect
-- Add a secondary high-value objective outside Mine Pit to split player attention
+*Analysis based on 796 matches, 1,243 player journey files, and 5 days of production data (February 10–14, 2026) across three maps: Ambrose Valley (566 matches), Grand Rift (59 matches), and Lockdown (171 matches).*
 
 ---
 
-## Insight 2: Lockdown is the most balanced map and the data proves it
+## Insight 1: Grand Rift — Loot Distribution Is Not the Root Cause of Mine Pit Concentration
 
-**What I noticed:**
-Lockdown's heatmaps look completely different from the other two maps. Traffic, kills, loot and deaths are all spread across multiple zones with no single overwhelming hotspot. The map has multiple areas of activity happening simultaneously.
+**Observation:**
+A surface-level reading of Grand Rift's heatmaps suggests that Mine Pit dominates player activity because it holds the most loot. However, cross-referencing the loot heatmap against the kill and traffic heatmaps reveals a more nuanced problem. Loot markers are present at Gas Station, Engineer's Quarters, and Labour Quarters — loot is already distributed across the map. Despite this, kill, death, and traffic heatmaps converge almost entirely on Mine Pit.
 
-**What the data shows:**
-Lockdown has 171 matches, the second most played map after Ambrose Valley (566 matches). Grand Rift has only 59 matches. The kill heatmap shows activity in multiple zones rather than one dominant spot. The loot heatmap shows hotspots spread across the upper, center and lower areas of the map. Deaths occur in two separate zones rather than one. This spread indicates players are making genuine strategic choices about where to go.
+**Supporting Evidence:**
+If loot distribution were the primary driver of player behaviour, kills would be expected to follow loot across multiple zones. They do not. Players have access to alternatives and are consistently choosing to ignore them. Mine Pit is not functioning as a loot trap — it is functioning as a psychological anchor. Something about Mine Pit, whether extraction point proximity, superior cover, or established player meta, is making it feel mandatory regardless of what other zones offer.
 
-**Why a level designer should care:**
-Lockdown's even distribution is a sign of good map design, players are not forced into one path. The fact that it has 171 matches compared to Grand Rift's 59 may also suggest players prefer maps where they have more agency. The metric to watch: match count as a proxy for player preference. Maps with more evenly distributed activity tend to get replayed more.
+**Recommended Actions and Metrics:**
+Further redistributing loot is unlikely to produce meaningful change until the underlying pull factor is identified and addressed. The recommended first step is to audit extraction point placement and spawn distribution relative to Mine Pit before making any loot changes.
+- **Metric to watch:** Kill spread index across named zones — the ratio of kills occurring in Mine Pit versus the rest of the map
+- **Proposed test:** Relocate or add an extraction point near Gas Station. If kill activity follows, the pull is mechanical and addressable through design. If it does not, the issue is behavioural and will require a different intervention.
 
-**Actionable items:**
-- Use Lockdown's zone distribution as a benchmark when redesigning Grand Rift
-- Study what specific layout features in Lockdown create natural multi-zone play
-- Consider whether Grand Rift's low match count (59 vs 171) is partly caused by its imbalanced Mine Pit concentration
+**Why This Matters:**
+Shipping a loot rebalance patch without addressing the actual cause will produce no measurable change in player distribution and will consume a design and engineering cycle unnecessarily. Identifying the correct root cause is the prerequisite to any effective fix.
 
 ---
 
-## Insight 3: Ambrose Valley has a healthy loot-to-combat separation, but one kill zone needs attention
+## Insight 2: Grand Rift — Map Architecture and Storm Behaviour Have Eliminated Player Choice
 
-**What I noticed:**
-On Ambrose Valley, the loot heatmap and the kills heatmap tell two different stories. Loot is spread across many buildings and areas all over the map. But kills concentrate in one central zone. This means players are looting in different places and then traveling to fight, which creates a natural game loop.
+**Observation:**
+After establishing that loot distribution was not driving Mine Pit concentration, the storm death heatmap was examined to understand where players who avoided Mine Pit ended up. Storm deaths cluster consistently at Maintenance Bay, Burnt Zone, and Labour Quarters — all peripheral zones, all outside Mine Pit.
 
-**What the data shows:**
-Ambrose Valley is the most played map with 566 matches, 554 human slots and 282 bot slots. The loot spread is healthy, multiple hotspots across the map encourage players to start matches in different locations. However the kills heatmap shows one dominant central zone where the majority of human vs human combat happens. Storm deaths are scattered across the interior, suggesting players are getting caught mid-rotation while moving toward the extraction.
+**Supporting Evidence:**
+There is no named zone on Grand Rift with meaningful PvP activity outside of Mine Pit. Players who spawn at the map periphery and attempt to loot secondary zones do not survive long enough to reach a combat encounter — the storm closes over them before they can rotate. The map currently presents players with two outcomes: drop at Mine Pit and engage in PvP, or avoid Mine Pit and die passively to the storm. No viable third routing option exists.
 
-**Why a level designer should care:**
-The loot spread is working well, it creates varied early-game experiences. But the single central kill zone means all roads lead to the same fight. Players who loot anywhere on the map eventually funnel into the same central area. The storm death scatter in the interior suggests the storm is catching players during this rotation, meaning the timing between storm speed and map traversal time may need adjustment. The metric to watch: storm death rate as a percentage of total deaths. If storm deaths are high relative 
-to combat deaths, the storm timing is too aggressive for the map size.
+**Recommended Actions and Metrics:**
+This is a systems-level problem requiring the storm timing, shrink speed, spawn distribution, and map traversal distances to be reviewed together rather than in isolation.
+- **Metric to watch:** Time-of-death distribution for storm deaths versus PvP deaths on Grand Rift. Storm deaths concentrated in the first half of the match indicate that the early shrink phase is too aggressive for the map's traversal distances.
+- **Proposed action:** Reduce early-game storm shrink speed on Grand Rift to extend the viable rotation window for peripheral spawns. Monitor whether PvP activity begins to distribute across a second zone following the adjustment.
 
-**Actionable items:**
-- Keep the current loot distribution, it is working
-- Add a secondary combat zone on the opposite side of the map to break the single-funnel pattern
-- Review storm speed relative to the time it takes to cross the map from the furthest loot zones to the extraction point
+**Why This Matters:**
+In an extraction shooter, passive death — dying without meaningful player interaction — represents the lowest quality match outcome. A map where spawn location is a significant determinant of survival is not creating tension; it is creating inequity. Grand Rift's match count of 59 against Ambrose Valley's 566 is consistent with a map that players are choosing not to return to.
+
+---
+
+## Insight 3: Lockdown — Bot Patrol Distribution May Be Suppressing the Exploration the Map Was Designed to Enable
+
+**Observation:**
+On Ambrose Valley and Grand Rift, bot kill events cluster around the same zones that attract human players. On Lockdown, bot kill markers are distributed across the entire map with no discernible concentration. Every zone, including areas with low human traffic, shows bot activity. This pattern is anomalous and warrants closer examination.
+
+**Supporting Evidence:**
+Lockdown's loot heatmap is the most evenly distributed of the three maps, with loot present across upper, central, and lower zones — a layout that suggests the map was intentionally designed to reward and encourage exploration. However, the traffic heatmap shows human players concentrating in the northern section of the map, leaving well-stocked southern and western zones largely unvisited. The even loot distribution is not producing even player distribution. A plausible explanation is that bots patrolling low-traffic zones are creating unpredictable ambush conditions that disincentivise players from exploring off the main path.
+
+**Recommended Actions and Metrics:**
+Bot density is rarely examined as a variable in post-launch map analysis, but it directly shapes the risk profile of different zones. If bots are active everywhere, players learn that exploration carries a consistent danger tax — and they respond by clustering in areas where other human players provide safety in numbers.
+- **Metric to watch:** Human death rate by zone segmented by killer type (bot, human, storm) on Lockdown
+- **Proposed test:** Reduce bot patrol density in one or two southern and western zones for a defined session window. If human traffic redistributes toward those zones, bot density was suppressing the map's intended play pattern.
+
+**Why This Matters:**
+A map designed around exploration cannot function as intended if the AI population makes exploration consistently punishing. If this hypothesis is confirmed, the fix is a tuning adjustment to bot spawns — not a redesign of the map itself. Identifying this early prevents a misattribution of the problem to level design when the actual variable is AI configuration.
