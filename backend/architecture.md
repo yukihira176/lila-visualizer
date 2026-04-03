@@ -1,7 +1,7 @@
 # ARCHITECTURE.md — How I Built the LILA BLACK Visualizer
 
 ## What I Built
-A web-based tool that lets Level Designers explore player behavior across all 3 LILA BLACK maps. It shows where players move, fight, loot, and die using real production data from 796 matches across 4 days.
+A web-based tool that lets Level Designers explore player behavior across all 3 LILA BLACK maps. It shows where players move, fight, loot, and die using real production data from 796 matches across 5 days.
 
 ---
 
@@ -87,7 +87,7 @@ Tradeoff: the data is static. If new match files are added, preprocess.py must b
 | Timestamp meaning | ts column = milliseconds elapsed in match |
 | Movement sampling | Down-sampled Position events 1-in-3 to reduce JSON size |
 | Out of bounds coords | Events with UV outside 0-1.05 range are dropped |
-| February 14 partial day | Included as-is, noted in README as partial |
+| February 14 partial day | Included as-is, noted in README as partial |67 
 
 ---
 
