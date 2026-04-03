@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 
 function formatMs(ms) {
-  if (ms == null) return '0:00'
+  if (ms == null || ms <= 0) return '0:00'
   const totalSec = Math.floor(ms / 1000)
   const min = Math.floor(totalSec / 60)
   const sec = totalSec % 60
@@ -12,13 +12,15 @@ export default function Timeline({ matchData, timelinePct, isPlaying, onTimeline
   const { minTs, maxTs, duration } = useMemo(() => {
     if (!matchData?.events || matchData.events.length === 0)
       return { minTs: 0, maxTs: 0, duration: 0 }
-    const timestamps = matchData.events.map(e => e.ts)
+    const timestamps = matchData.events.map(e => e.ts).filter(t => t > 0)
+    if (timestamps.length === 0) return { minTs: 0, maxTs: 0, duration: 0 }
     const minTs = Math.min(...timestamps)
     const maxTs = Math.max(...timestamps)
-    return { minTs, maxTs, duration: maxTs - minTs }
+    const duration = maxTs - minTs
+    return { minTs, maxTs, duration: duration > 0 ? duration : 1 }
   }, [matchData])
 
-  const currentMs = minTs + duration * (timelinePct / 100)
+  const currentMs = duration > 0 ? minTs + duration * (timelinePct / 100) - minTs : 0
 
   const histogram = useMemo(() => {
     if (!matchData?.events || duration === 0) return []
@@ -26,8 +28,9 @@ export default function Timeline({ matchData, timelinePct, isPlaying, onTimeline
     const bins = new Array(BINS).fill(0)
     for (const ev of matchData.events) {
       if (ev.event === 'Position' || ev.event === 'BotPosition') continue
+      if (duration === 0) continue
       const bin = Math.min(BINS - 1, Math.floor(((ev.ts - minTs) / duration) * BINS))
-      bins[bin]++
+      if (bin >= 0) bins[bin]++
     }
     const max = Math.max(...bins, 1)
     return bins.map(v => v / max)
@@ -61,7 +64,7 @@ export default function Timeline({ matchData, timelinePct, isPlaying, onTimeline
           {isPlaying ? '⏸' : '▶'}
         </button>
         <span className="font-mono text-xs text-[#556677] w-10 text-right flex-shrink-0">
-          {formatMs(minTs)}
+          0:00
         </span>
         <div className="flex-1">
           <input type="range" min="0" max="100" step="0.1" value={timelinePct}
@@ -74,7 +77,7 @@ export default function Timeline({ matchData, timelinePct, isPlaying, onTimeline
           {formatMs(currentMs)}
         </span>
         <span className="font-mono text-xs text-[#556677] w-10 flex-shrink-0">
-          {formatMs(maxTs)}
+          {formatMs(duration)}
         </span>
         <span className="font-mono text-xs text-[#445566] flex-shrink-0">
           {filteredEventCount.toLocaleString()} events
