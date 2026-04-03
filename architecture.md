@@ -1,5 +1,8 @@
 # ARCHITECTURE.md — How I Built the LILA BLACK Visualizer
 
+**Live Tool:** https://lila-visualizer.vercel.app
+**Backend API:** https://lila-visualizer-production.up.railway.app
+
 ## What I Built
 A web-based tool that lets Level Designers explore player behavior across all 3 LILA BLACK maps. It shows where players move, fight, loot, and die using real production data from 796 matches across 5 days.
 
@@ -84,10 +87,10 @@ Tradeoff: the data is static. If new match files are added, preprocess.py must b
 | Situation | Assumption I made |
 |-----------|------------------|
 | Bot detection | UUID with hyphens = human, numeric ID = bot |
-| Timestamp meaning | ts column = milliseconds elapsed in match |
+| Timestamp meaning | ts column = Unix epoch milliseconds. Each parquet file spans less than 1 second of raw data — full 5-minute match is reconstructed by combining all files sharing the same match_id |
 | Movement sampling | Down-sampled Position events 1-in-3 to reduce JSON size |
 | Out of bounds coords | Events with UV outside 0-1.05 range are dropped |
-| February 14 partial day | Included as-is, noted in README as partial |67 
+| February 14 partial day | Included as-is, noted in README as partial |
 
 ---
 
